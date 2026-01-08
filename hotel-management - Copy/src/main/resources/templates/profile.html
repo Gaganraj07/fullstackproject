@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title th:text="${title}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+
+<div class="container">
+    <h1 th:text="'Hello, ' + ${user.getName()} + ' ' + ${user.getSurname()}">
+</div>
+
+
+<div class="container">
+    <p>
+        This is the list of your current reservations:
+        <div class="container-fluid">
+            <ul>
+                <li th:each="reservation: ${current_reservations}">
+                    <div class="row">
+                    <div class="col-xs-6">
+                    <p>
+                        Name: <b th:text="${reservation.getRoom_type_id().getName()}"/> <br>
+                        Checkin date: <b th:text="${#dates.format(reservation.getCheckinDate(), 'dd-MM-yyyy')}"/> <br>
+                        Checkout date: <b th:text="${#dates.format(reservation.getCheckoutDate(), 'dd-MM-yyyy')}"/> <br>
+                    </p>
+                    </div>
+                    <div class="col-xs-2">
+                        <a th:href="'/profile/delete-book/' + ${reservation.getId()}" class="btn btn-success">Delete Reservation</a>
+                    </div>
+                    <div class="col-xs-2">
+                        <a th:href="'/profile/edit-book/' + ${reservation.getId()}" class="btn btn-warning">Edit Reservation</a>
+                    </div>
+                    <div class="col-xs-2">
+                        <a th:href="'/generate-pdf/' + ${reservation.getId()}" class="btn btn-info">Get PDF</a>
+                    </div>
+                    </div>
+                </li>
+            </ul>
+        </div> <br>
+        <br>
+        <br>
+        This is the list of your past reservations:
+        <div class="container-fluid">
+            <ul>
+                <li th:each="reservation: ${past_reservations}">
+                    <div class="row">
+                        <div class="col-xs-6">
+                    <p>
+                        Name: <b th:text="${reservation.getRoom_type_id().getName()}"/> <br>
+                        Checkin date: <b th:text="${#dates.format(reservation.getCheckinDate(), 'dd-MM-yyyy')}"/> <br>
+                        Checkout date: <b th:text="${#dates.format(reservation.getCheckoutDate(), 'dd-MM-yyyy')}"/> <br>
+                    </p>
+                        </div>
+                    <div class="col-xs-2">
+                        <a th:href="'/profile/delete-book/' + ${reservation.getId()}" class="btn btn-success">Delete Reservation</a>
+                    </div>
+                    <div class="col-xs-2">
+                        <a th:href="'/profile/edit-book/' + ${reservation.getId()}" class="btn btn-warning">Edit Reservation</a>
+
+                    </div>
+                        <div class="col-xs-2">
+                            <a th:href="'/generate-pdf/' + ${reservation.getId()}" class="btn btn-info">Get PDF</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div><br>
+        <br>
+        <br>
+        This is the list of your upcoming reservations:
+        <div class="container-fluid">
+            <ul>
+                <li th:each="reservation: ${upcoming_reservations}">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <p>
+                                Name: <b th:text="${reservation.getRoom_type_id().getName()}"/> <br>
+                                Checkin date: <b th:text="${#dates.format(reservation.getCheckinDate(), 'dd-MM-yyyy')}"/> <br>
+                                Checkout date: <b th:text="${#dates.format(reservation.getCheckoutDate(), 'dd-MM-yyyy')}"/> <br>
+                            </p>
+                        </div>
+                        <div class="col-xs-2">
+                            <a th:href="'/profile/delete-book/' + ${reservation.getId()}" class="btn btn-success">Delete Reservation</a>
+                        </div>
+                        <div class="col-xs-2">
+                            <a th:href="'/profile/edit-book/' + ${reservation.getId()}" class="btn btn-warning">Edit Reservation</a>
+                        </div>
+                        <div class="col-xs-2">
+                            <a th:href="'/generate-pdf/' + ${reservation.getId()}" class="btn btn-info">Get PDF</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </p>
+
+</div>
+
+
+<div th:insert="blocks/footer :: footer"></div>
+</body>
+</html>
